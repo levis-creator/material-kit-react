@@ -12,6 +12,7 @@ import { List as ListIcon } from '@phosphor-icons/react/dist/ssr/List';
 import { MagnifyingGlass as MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 
+import { User } from '@/types/user';
 import { usePopover } from '@/hooks/use-popover';
 
 import { MobileNav } from './mobile-nav';
