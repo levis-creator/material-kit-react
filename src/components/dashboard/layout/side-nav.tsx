@@ -9,19 +9,30 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { ArrowSquareUpRight as ArrowSquareUpRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowSquareUpRight';
-import { CaretUpDown as CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr/CaretUpDown';
 
 import type { NavItemConfig } from '@/types/nav';
 import { paths } from '@/paths';
 import { isNavItemActive } from '@/lib/is-nav-item-active';
+import findWordInUrl from '@/lib/url-checker';
+import { useUser } from '@/hooks/use-user';
 import { Logo } from '@/components/core/logo';
 
-import { navItems } from './config';
+import { navItemsAdmin } from './admin.config';
+import { navItemsFacilitator } from './facilitator.config';
 import { navIcons } from './nav-icons';
 
 export function SideNav(): React.JSX.Element {
   const pathname = usePathname();
-
+  const { user } = useUser();
+  const navItemsCond = () => {
+    if (findWordInUrl(pathname, 'facilitator') || user?.role[0] == 'Facilitator') {
+      return navItemsFacilitator;
+    } else if (findWordInUrl(pathname, 'admin') || user?.role[0] == 'Admin') {
+      return navItemsAdmin;
+    }
+  };
+  console.log(user);
+  const navItems = navItemsCond();
   return (
     <Box
       sx={{
@@ -96,7 +107,6 @@ export function SideNav(): React.JSX.Element {
 function renderNavItems({ items = [], pathname }: { items?: NavItemConfig[]; pathname: string }): React.JSX.Element {
   const children = items.reduce((acc: React.ReactNode[], curr: NavItemConfig): React.ReactNode[] => {
     const { key, ...item } = curr;
-
     acc.push(<NavItem key={key} pathname={pathname} {...item} />);
 
     return acc;

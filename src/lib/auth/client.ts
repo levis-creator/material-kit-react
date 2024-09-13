@@ -44,9 +44,9 @@ class AuthClient {
     // Make API request
 
     // We do not handle the API, so we'll just generate a token and store it in localStorage.
-    const result: User = await httpReq.postData('/auth/signup', _);
-    console.log(result);
-    localStorage.setItem('custom-auth-token', result.token as string);
+    const result = await httpReq.postData('/auth/signup', _);
+
+    localStorage.setItem('custom-auth-token', result?.data.token as string);
     return {};
   }
 
@@ -87,8 +87,7 @@ class AuthClient {
       return { data: null };
     }
     const result = await httpReq.postData('auth/verify', token);
-    console.log(token);
-    return { data: result };
+    return { data: result?.data };
   }
 
   async signOut(): Promise<{ error?: string }> {

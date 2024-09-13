@@ -10,14 +10,15 @@ import Drawer from '@mui/material/Drawer';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { ArrowSquareUpRight as ArrowSquareUpRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowSquareUpRight';
-import { CaretUpDown as CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr/CaretUpDown';
 
 import type { NavItemConfig } from '@/types/nav';
 import { paths } from '@/paths';
 import { isNavItemActive } from '@/lib/is-nav-item-active';
+import findWordInUrl from '@/lib/url-checker';
 import { Logo } from '@/components/core/logo';
 
-import { navItems } from './config';
+import { navItemsAdmin } from './admin.config';
+import { navItemsFacilitator } from './facilitator.config';
 import { navIcons } from './nav-icons';
 
 export interface MobileNavProps {
@@ -28,7 +29,15 @@ export interface MobileNavProps {
 
 export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element {
   const pathname = usePathname();
+  const navItemsCond = () => {
+    if (findWordInUrl(pathname, 'facilitator')) {
+      return navItemsFacilitator;
+    } else if (findWordInUrl(pathname, 'admin')) {
+      return navItemsAdmin;
+    }
+  };
 
+  const navItems = navItemsCond();
   return (
     <Drawer
       PaperProps={{

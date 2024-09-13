@@ -1,4 +1,5 @@
 import type { Icon } from '@phosphor-icons/react/dist/lib/types';
+import { UsersFour, UsersThree } from '@phosphor-icons/react/dist/ssr';
 import { ChartPie as ChartPieIcon } from '@phosphor-icons/react/dist/ssr/ChartPie';
 import { GearSix as GearSixIcon } from '@phosphor-icons/react/dist/ssr/GearSix';
 import { PlugsConnected as PlugsConnectedIcon } from '@phosphor-icons/react/dist/ssr/PlugsConnected';
@@ -13,4 +14,6 @@ export const navIcons = {
   'x-square': XSquare,
   user: UserIcon,
   users: UsersIcon,
+  users3: UsersThree,
+  users4: UsersFour,
 } as Record<string, Icon>;

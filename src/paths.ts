@@ -7,8 +7,16 @@ export const paths = {
       account: '/dashboard/admin/account',
       customers: '/dashboarda/admin/customers',
       integrations: '/dashboard/admin/integrations',
-      settings: '/dashboard/admin/settings',
     },
+    facilitator: {
+      overview: '/dashboard/facilitator',
+      account: '/dashboard/admin/account',
+      customers: '/dashboarda/admin/customers',
+      integrations: '/dashboard/admin/integrations',
+    },
+    account: '/dashboard/account',
+    settings: '/dashboard/settings',
+    cohorts: { root: '/dashboard/cohorts', add: '/dashboard/cohorts/add' },
   },
   errors: { notFound: '/errors/not-found' },
 } as const;
