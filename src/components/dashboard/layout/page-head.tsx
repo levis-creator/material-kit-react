@@ -2,9 +2,11 @@
 
 import React, { FC } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { StackSimple } from '@phosphor-icons/react';
+import { Trash } from '@phosphor-icons/react/dist/ssr';
 import { Download as DownloadIcon } from '@phosphor-icons/react/dist/ssr/Download';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
@@ -12,14 +14,21 @@ import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 interface PageHeaderProps {
   title: string;
   addEndpoint?: string;
+  deleteButton?: boolean;
+  deleteFunction?: () => void;
 }
-const PageHeader: FC<PageHeaderProps> = ({ title = 'Title', addEndpoint = '' }) => {
+const PageHeader: FC<PageHeaderProps> = ({
+  title = 'Title',
+  addEndpoint = '',
+  deleteButton = false,
+  deleteFunction,
+}) => {
   const router = useRouter();
   return (
     <Stack direction="row" spacing={3}>
       <Stack spacing={1} sx={{ flex: '1 1 auto' }}>
         <Typography variant="h4">{title}</Typography>
-        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+        <Stack direction={'row'}>
           <Button color="inherit" startIcon={<UploadIcon fontSize="var(--icon-fontSize-md)" />}>
             Import
           </Button>
@@ -27,8 +36,9 @@ const PageHeader: FC<PageHeaderProps> = ({ title = 'Title', addEndpoint = '' }) 
             Export
           </Button>
         </Stack>
+        <IconButton />
       </Stack>
-      <div>
+      <Stack>
         <Button
           onClick={() => router.push(`${addEndpoint}`)}
           startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />}
@@ -36,7 +46,12 @@ const PageHeader: FC<PageHeaderProps> = ({ title = 'Title', addEndpoint = '' }) 
         >
           Add
         </Button>
-      </div>
+        {deleteButton && (
+          <Button onClick={deleteFunction} color="error" startIcon={<Trash fontSize="var(--icon-fontSize-md)" />}>
+            Delete
+          </Button>
+        )}
+      </Stack>
     </Stack>
   );
 };

@@ -62,5 +62,34 @@ class HttpReq {
       throw error;
     }
   }
+  async deleteData(endpoint: string, params: Record<string, any> = {}, data?: any): Promise<any> {
+    try {
+      // Convert params object to URL query string
+      const queryString = new URLSearchParams(params).toString();
+      const url = `${this.baseUrl}/api/${endpoint}${queryString ? `?${queryString}` : ''}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      console.log(response.status);
+      if (response.status !== 204) {
+        // Optionally, you can parse the error response to provide more details
+        const errorResponse = await response.json();
+        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorResponse.message || 'Unknown error'}`);
+      }
+
+      // Optionally handle the response
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error in deleting', error);
+      // Optionally rethrow the error or return a standardized error object
+      throw error;
+    }
+  }
 }
 export const httpReq = new HttpReq();

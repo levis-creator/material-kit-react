@@ -36,9 +36,16 @@ interface CohortTableProps {
   page?: number;
   rows?: Cohort[];
   rowsPerPage?: number;
+  dataSelected?: (data: any[]) => void;
 }
 
-export function CohortTable({ count = 0, rows = [], page = 0, rowsPerPage = 0 }: CohortTableProps): React.JSX.Element {
+export function CohortTable({
+  count = 0,
+  rows = [],
+  page = 0,
+  rowsPerPage = 0,
+  dataSelected,
+}: CohortTableProps): React.JSX.Element {
   const rowIds = React.useMemo(() => {
     return rows.map((cohort) => cohort.id);
   }, [rows]);
@@ -47,6 +54,12 @@ export function CohortTable({ count = 0, rows = [], page = 0, rowsPerPage = 0 }:
 
   const selectedSome = (selected?.size ?? 0) > 0 && (selected?.size ?? 0) < rows.length;
   const selectedAll = rows.length > 0 && selected?.size === rows.length;
+  React.useEffect(() => {
+    if (dataSelected) {
+      dataSelected(Array.from(selected));
+      console.log(selected);
+    }
+  }, [selected]);
 
   return (
     <Card>

@@ -4,7 +4,7 @@ import { paths } from '@/paths';
 export const navItemsAdmin = [
   { key: 'overview', title: 'Overview', href: paths.dashboard.admin.overview, icon: 'chart-pie' },
   { key: 'cohorts', title: 'Cohorts', href: paths.dashboard.admin.cohorts.root, icon: 'users3' },
-  { key: 'integrations', title: 'Integrations', href: paths.dashboard.integrations, icon: 'plugs-connected' },
+  { key: 'integrations', title: 'Integrations', href: '#', icon: 'plugs-connected' },
   { key: 'settings', title: 'Settings', href: paths.dashboard.settings, icon: 'gear-six' },
   { key: 'account', title: 'Account', href: paths.dashboard.account, icon: 'user' },
   { key: 'error', title: 'Error', href: paths.errors.notFound, icon: 'x-square' },
